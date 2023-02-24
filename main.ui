@@ -18,23 +18,10 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
-      <width>941</width>
-      <height>651</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
       <y>10</y>
-      <width>131</width>
-      <height>28</height>
+      <width>941</width>
+      <height>681</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>Пуск</string>
     </property>
    </widget>
   </widget>

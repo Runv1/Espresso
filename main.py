@@ -13,28 +13,21 @@ class MyWidget(QMainWindow):
         self.con = sqlite3.connect("coffee.sqlite")
         self.con.set_trace_callback(print)
         self.cur = self.con.cursor()
-        self.pushButton.clicked.connect(self.start_search)
-        self.pushButton.clicked.connect(self.loadTable)
+        self.load_table()
 
-    def start_search(self):
-        try:
-            q = """SELECT * FROM coffee"""
-            self.result = self.cur.execute(q).fetchall()
-            print(self.result)
-        except Exception as e:
-            print(e)
+    def get_data(self):
+        q = """SELECT * FROM coffee"""
+        return self.cur.execute(q).fetchall()
 
-    def loadTable(self):
+    def load_table(self):
         try:
+            result = self.get_data()
             self.tableWidget.setColumnCount(7)
             self.tableWidget.setHorizontalHeaderLabels(['id', 'name', 'stepen', 'molotiy', 'vkys', 'cost', 'volume'])
-            self.tableWidget.setRowCount(len(self.result) - 1)
-            for i, row in enumerate(self.result):
-                self.tableWidget.setRowCount(
-                    self.tableWidget.rowCount() + 1)
+            self.tableWidget.setRowCount(len(result))
+            for i, row in enumerate(result):
                 for j, elem in enumerate(row):
-                    self.tableWidget.setItem(
-                        i, j, QTableWidgetItem(elem))
+                    self.tableWidget.setItem(i, j, QTableWidgetItem(str(elem)))
             self.tableWidget.resizeColumnsToContents()
         except Exception as e:
             print(e)
@@ -45,6 +38,3 @@ if __name__ == '__main__':
     ex = MyWidget()
     ex.show()
     sys.exit(app.exec())
-
-
-

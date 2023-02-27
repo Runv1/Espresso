@@ -5,12 +5,15 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 
+import addeditui
+import mainui
 
-class LoadWidget(QDialog):
+
+class LoadWidget(QDialog, addeditui.Ui_Dialog):
     def __init__(self, parent, con, id, name, stepen, molotiy, vkys, cost, volume, description):
         super().__init__(parent)
         self.con = con
-        uic.loadUi("addEditCoffeeForm.ui", self)
+        self.setupUi(self)
         self.lineEdit.setText(str(id))
         self.lineEdit_2.setText(str(name))
         self.lineEdit_3.setText(str(stepen))
@@ -70,11 +73,11 @@ class LoadWidget(QDialog):
             self.error_message.setText('Неверно заполнена форма')
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, mainui.Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("main.ui", self)
-        self.con = sqlite3.connect("coffee.sqlite")
+        self.setupUi(self)
+        self.con = sqlite3.connect("data/coffee.sqlite")
         self.tableWidget.clicked.connect(self.select_row)
         self.pushButton.clicked.connect(self.add_row)
         self.load_table()
